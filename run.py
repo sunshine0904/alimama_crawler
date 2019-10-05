@@ -60,12 +60,11 @@ def crawler_product(cookie, dit):
 
 
 def crawler_product_page(dit, page, cookies):
-    print(u'============================= 开始抓取第 ') + str(page) + (u'页 =============================')
-    print(u'url ==> ') + get_product_url(dit['product_url'], page)
-    print('\n')
+    print(u'============================= 开始抓取第 %d 页 ============================='%page)
+    print(u'url ==> %s\n'%get_product_url(dit['product_url'], page))
 
     r = requests.get(get_product_url(dit['product_url'], page), cookies=cookies)
-
+    print(r.json())
     info = r.json()['data']
     f = open('parse_result.txt', 'a')
 
