@@ -54,9 +54,9 @@ def get_tags(tags):
 
 
 if __name__ == '__main__':
-    print 'test get_coupon_url'
-    print get_coupon_url(get_api_urls()[0]['coupon_url'], '547212428150')
+    print('test get_coupon_url')
+    print(get_coupon_url(get_api_urls()[0]['coupon_url'], '547212428150'))
 
-    print 'test get_product_url'
-    print get_product_url(get_api_urls()[0]['product_url'], 1)
+    print('test get_product_url')
+    print(get_product_url(get_api_urls()[0]['product_url'], 1))
 

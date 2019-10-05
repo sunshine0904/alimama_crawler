@@ -59,21 +59,21 @@ def get_all_store():
 
 def create_store(params):
     r = requests.post(get_host() + API_STORE, params)
-    print u'创建店铺成功 ==> ' + params['name']
+    print(u'创建店铺成功 ==> ') + params['name']
     return r.json()
 
 
 def create_product(params):
     r = requests.post(get_host() + API_PRODUCT, params)
-    print u'======================= 创建商品 ======================= '
-    print u'Name ==> ' + str(params['name'])
-    print u'tpid ==> ' + str(params['tpid'])
-    print u'tags ==> ' + str(params['tags'])
-    print '          ---------------- Json ----------------         '
-    print r.text
-    print u'======================= 创建商品成功 ======================= '
-    return r.json()
+    print(u'======================= 创建商品 ======================= ')
+    print(u'Name ==> ') + str(params['name'])
+    print(u'tpid ==> ') + str(params['tpid'])
+    print(u'tags ==> ') + str(params['tags'])
+    print('          ---------------- Json ----------------         ')
+    print(r.text)
+    print(u'======================= 创建商品成功 ======================= ')
+    return(r.json())
 
 
 if __name__ == '__main__':
-    print get_crawler_address()
+    print(get_crawler_address())

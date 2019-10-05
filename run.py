@@ -14,6 +14,7 @@ import sys
 import getopt
 import os
 import os.path
+from imp import reload
 
 
 # def main():
@@ -42,11 +43,11 @@ def main():
     while True:
         try:
             c_address = get_crawler_address()
-            print u'开始抓取 =================== Start '
+            print(u'开始抓取 =================== Start ')
             crawler_product(cookie, c_address['data'])
         except Exception as e:
-            print e
-            print u'没有可抓取项，休眠60s ...'
+            print(e)
+            print(u'没有可抓取项，休眠60s ...')
             time.sleep(60)
 
 
@@ -54,14 +55,14 @@ def crawler_product(cookie, dit):
     for i in range(1 if dit['start_page']==0 else dit['start_page'], 1000 if dit['end_page']==0 else dit['end_page']):
         end = crawler_product_page(dit, i, cookie)
         if end:
-            print u'======================== 结束 ========================'
+            print(u'======================== 结束 ========================')
             break
 
 
 def crawler_product_page(dit, page, cookies):
-    print u'============================= 开始抓取第 ' + str(page) + u'页 ============================='
-    print u'url ==> ' + get_product_url(dit['product_url'], page)
-    print '\n'
+    print(u'============================= 开始抓取第 ') + str(page) + (u'页 =============================')
+    print(u'url ==> ') + get_product_url(dit['product_url'], page)
+    print('\n')
 
     r = requests.get(get_product_url(dit['product_url'], page), cookies=cookies)
 
@@ -121,19 +122,19 @@ def crawler_product_page(dit, page, cookies):
                 myp['coupon_link_long'] = data['couponLink']
                 myp['tk_common_rate'] = data['tkCommonRate']
         except Exception as e:
-            print u'没有优惠券'
+            print(u'没有优惠券')
             continue
 
         # create_product(myp)
-        print u'商品地址:' + myp['source_link']
-        print u'券地址:' + myp['coupon_link_long']
-        print u'优惠比:' + str(myp['coupon_amount'] / float(myp['price']))
+        print(u'商品地址:') + myp['source_link']
+        print(u'券地址:') + myp['coupon_link_long']
+        print(u'优惠比:') + str(myp['coupon_amount'] / float(myp['price']))
 
         if myp['coupon_amount'] / float(myp['price']) >= 0.2 and myp['tk_rate'] > 1:
-            print u'----写入----'
+            print(u'----写入----')
             write_in_file(f, u'商品名称:' + myp['name'] + u'\n商品地址:' + myp['source_link'] + u'\n 券地址:' + myp['coupon_link_long'] + u'\n 优惠券:' + myp['coupon_info'] + u'\n收入比率:' + str(myp['tk_rate']) + '%\n\n')
 
-        print '\n=========================== Item End ================================== \n'
+        print('\n=========================== Item End ================================== \n')
         time.sleep(1)
 
     f.close()
@@ -149,7 +150,7 @@ def write_in_file(f, content):
     
 if __name__ == '__main__':
     reload(sys)
-    sys.setdefaultencoding('utf-8')
+    #sys.setdefaultencoding('utf-8')
     # 参数
     try:
         opts, args = getopt.getopt(sys.argv[1:], "dhv", ['debug', 'help', 'version'])
@@ -157,15 +158,15 @@ if __name__ == '__main__':
             if op in ('-d', '--debug'):
                 set_debug(True)
             elif op in ("-h", "--help"):
-                print usage.__doc__
+                print(usage.__doc__)
                 sys.exit()
             elif op in ("-v", "--version"):
-                print get_version()
+                print(get_version())
                 sys.exit()
             else:
-                print "Using the wrong way, please view the help information."
+                print("Using the wrong way, please view the help information.")
     except getopt.GetoptError as err:
-        print usage.__doc__
+        print(usage.__doc__)
         sys.exit(1)
 
     main()
